@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسكاوي للعطور - Meskawy Perfume</title>
+    <style>
+        /* إعدادات الخلفية الشاملة */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('MESKAWY.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 20px;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        /* تصميم الأزرار التفاعلية */
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            filter: brightness(1.1);
+        }
+
+        /* ألوان الأزرار بناءً على الروابط */
+        .facebook { background: linear-gradient(45deg, #1877f2, #0052bd); }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .tiktok { background: #000; border: 1px solid rgba(255,255,255,0.5); }
+        .location { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+        .products-btn { 
+            background: linear-gradient(45deg, #8e44ad, #6c3483); 
+            margin-top: 40px;
+            border: 2px solid rgba(255,255,255,0.4);
+            animation: pulse 2s infinite;
+        }
+
+        /* أنيميشن "قريباً" */
+        .coming-soon-container {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .coming-soon-text {
+            font-size: 60px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, #8e44ad, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite, float 3s ease-in-out infinite;
+            margin: 0;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: rgba(142, 68, 173, 0.4);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 4s infinite;
+        }
+
+        /* تعريف الحركات */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(142, 68, 173, 0); } 100% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0); } }
+        @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.4); opacity: 0.7; } }
+
+        .page { display: none; width: 100%; }
+        .page.active { display: block; animation: fadeInUp 0.7s ease; }
+
+        footer { padding: 30px; font-size: 14px; opacity: 0.6; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="font-size: 2.8em; margin: 0;">🌿 مسكاوي للعطور</h1>
+        <p style="font-size: 1.1em; opacity: 0.9;">الفخامة التي تستحقها ✨</p>
+    </header>
+
+    <div class="container">
+        
+        <div id="home" class="page active">
+            <a href="https://www.facebook.com/share/1DVToojVV7/" class="btn facebook" target="_blank">فيسبوك</a>
+            <a href="https://www.instagram.com/meskawyperfume?igsh=MWR0bXpudDgwZnplaA==" class="btn instagram" target="_blank">إنستجرام</a>
+            <a href="https://www.tiktok.com/@meskawy1?_r=1&_t=ZS-92u1NKx7z3g" class="btn tiktok" target="_blank">تيك توك</a>
+            <a href="https://maps.app.goo.gl/f4QbGQCP9fmejfDJ8?g_st=ipcضيف" class="btn location" target="_blank">📍 موقع المحل</a>
+            
+            <button class="btn products-btn" onclick="openPage('products-page')">✨ استكشف مجموعتنا</button>
+        </div>
+
+        <div id="products-page" class="page">
+            <button class="btn" style="background: rgba(255,255,255,0.1); width: 120px; font-size: 14px; margin-bottom: 20px;" onclick="openPage('home')">⬅ العودة</button>
+            
+            <div class="coming-soon-container">
+                <div class="bg-glow"></div>
+                <h1 class="coming-soon-text">قريباً...</h1>
+                <p style="margin-top: 20px; font-size: 1.1em; color: rgba(255,255,255,0.8);">
+                    انتظروا تشكيلة استثنائية من أرقى العطور
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2024 مسكاوي للعطور - جميع الحقوق محفوظة
+    </footer>
+
+    <script>
+        function openPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
