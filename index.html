@@ -26,11 +26,11 @@
             overflow-x: hidden;
         }
 
-        /* حاوية الخلفية والصورة المتحركة */
+        /* حاوية الخلفية لضمان ظهور الصورة كاملة مع أنيميشن هادئ */
         .bg-fixed-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
+            z-index: -1;
             overflow: hidden;
         }
 
@@ -38,80 +38,70 @@
             width: 110%; height: 110%;
             position: absolute;
             top: -5%; left: -5%;
-            background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('7431490467.png');
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('7431490467.png');
             background-size: cover;
             background-position: center;
-            animation: kenBurns 20s infinite alternate ease-in-out;
-        }
-
-        /* طبقة الجزيئات الذهبية */
-        #particles-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            animation: kenBurns 15s infinite alternate ease-in-out;
         }
 
         @keyframes kenBurns {
             0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            100% { transform: scale(1.08); }
         }
 
         header {
             text-align: center;
             padding: 60px 20px 30px;
-            animation: fadeInDown 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+            animation: fadeInDown 1.5s ease-out;
         }
 
         .site-title-main { 
-            font-size: clamp(2.8em, 12vw, 4em); 
+            font-size: clamp(2.8em, 12vw, 3.8em); 
             margin: 0; 
             font-weight: 900; 
             color: var(--gold);
-            text-shadow: 0 0 20px rgba(255, 207, 103, 0.3);
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
         }
         .site-title-sub { font-size: 0.35em; display: block; letter-spacing: 5px; color: #fff; opacity: 0.8; margin-top: 10px; }
 
-        .container { width: 92%; max-width: 480px; text-align: center; z-index: 1; }
+        .container { width: 92%; max-width: 460px; text-align: center; z-index: 1; }
 
-        /* الأزرار بتأثير ذهبي خفيف */
+        /* الأزرار البيضاء التفاعلية */
         .btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 25px;
-            margin: 20px 0;
-            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 18px 0;
+            border-radius: 18px;
             background: var(--soft-white);
             text-decoration: none;
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255, 207, 103, 0.2);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             animation: slideInUp 0.8s backwards;
         }
 
-        .btn::before {
+        /* تأثير اللمعة عند اللمس أو مرور الماوس */
+        .btn::after {
             content: '';
             position: absolute;
             top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 207, 103, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 207, 103, 0.5), transparent);
             transition: 0.7s;
         }
-        .btn:hover::before { left: 150%; }
+        .btn:hover::after { left: 150%; }
 
         .btn:hover { 
-            transform: translateY(-8px) scale(1.03); 
-            box-shadow: 0 15px 35px rgba(255, 207, 103, 0.2);
-            background: #fff;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 207, 103, 0.2);
         }
 
-        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 19px; color: #1a1a1a; }
-        .btn span.text-en { flex: 1; text-align: left; font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase; }
-        .btn i { font-size: 26px; width: 50px; text-align: center; transition: transform 0.3s; }
-        .btn:hover i { transform: scale(1.2); }
+        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 18px; color: #1a1a1a; }
+        .btn span.text-en { flex: 1; text-align: left; font-size: 13px; font-weight: 600; color: #888; }
+        .btn i { font-size: 24px; width: 50px; text-align: center; }
 
         .facebook-style i { color: #1877f2; }
         .instagram-style i { color: #cc2366; }
@@ -120,42 +110,54 @@
 
         /* زر استكشف البرتقالي الذهبي */
         .products-btn { 
-            background: linear-gradient(45deg, #f39c12, #d35400, #f39c12) !important;
-            background-size: 200% auto !important;
+            background: linear-gradient(45deg, #f39c12, #d35400) !important;
             justify-content: center !important;
-            margin-top: 50px;
-            animation: slideInUp 0.8s backwards, pulseGold 2s infinite, gradientMove 3s infinite !important;
-            border: none;
+            margin-top: 40px;
+            animation: slideInUp 0.8s backwards, pulseGold 2s infinite !important;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .products-btn span { color: white !important; font-size: 20px !important; letter-spacing: 1px; }
+        .products-btn span { color: white !important; font-size: 19px !important; font-weight: bold; }
 
-        /* قريباً... بإنبهار أكثر */
-        .coming-soon-wrapper { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        /* قسم قريبا */
+        .coming-soon-wrapper {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
         .cs-text {
-            font-size: clamp(60px, 18vw, 100px);
+            font-size: clamp(55px, 15vw, 85px);
             font-weight: 900;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--gold);
-            background: linear-gradient(to bottom, var(--gold), #fff);
+            background: linear-gradient(to bottom, #fff, var(--gold));
             -webkit-background-clip: text;
-            animation: cs-float 3s infinite alternate ease-in-out, cs-glow 2s infinite alternate;
+            -webkit-text-fill-color: transparent;
+            animation: floatText 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 207, 103, 0.5));
         }
 
-        @keyframes gradientMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        @keyframes cs-glow { from { text-shadow: 0 0 10px rgba(255,207,103,0.2); } to { text-shadow: 0 0 30px rgba(255,207,103,0.8); } }
-        @keyframes cs-float { from { transform: translateY(0); } to { transform: translateY(-30px); } }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0.6); } 70% { box-shadow: 0 0 0 25px rgba(255, 207, 103, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0); } }
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGold { 
+            0% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 207, 103, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0); }
+        }
 
         .page { display: none; width: 100%; }
         .page.active { display: block; }
-        footer { padding: 50px; font-size: 14px; opacity: 0.5; text-align: center; letter-spacing: 1px; }
+        footer { padding: 40px; font-size: 13px; opacity: 0.6; text-align: center; }
 
-        .btn:nth-child(1) { animation-delay: 0.2s; }
-        .btn:nth-child(2) { animation-delay: 0.4s; }
-        .btn:nth-child(3) { animation-delay: 0.6s; }
-        .btn:nth-child(4) { animation-delay: 0.8s; }
+        .btn:nth-child(1) { animation-delay: 0.1s; }
+        .btn:nth-child(2) { animation-delay: 0.2s; }
+        .btn:nth-child(3) { animation-delay: 0.3s; }
+        .btn:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -163,15 +165,15 @@
     <div class="bg-fixed-container">
         <div class="bg-animated"></div>
     </div>
-    
-    <canvas id="particles-canvas"></canvas>
 
     <header>
         <h1 class="site-title-main">
             مسكاوي
             <span class="site-title-sub"></span>
         </h1>
-        <p style="font-size: 1.2em; color: #fff; margin-top: 15px; font-weight: 300; opacity: 0.9;">يليق بك الاستثناء ❤️</p>
+        <p style="font-size: 1.1em; color: #fff; margin-top: 15px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">يليق بك الاستثناء ❤️
+
+</p>
     </header>
 
     <div class="container">
@@ -207,73 +209,17 @@
             </button>
             <div class="coming-soon-wrapper">
                 <h1 class="cs-text">قريباً</h1>
-                <p style="font-size: 1.3em; font-weight: bold; color: var(--gold);">MESKAWY COLLECTION</p>
+                <p style="font-size: 1.2em; color: var(--gold);">نعمل على توفير أفخم العطور لكم</p>
             </div>
         </div>
     </div>
 
     <footer>
-        © 2026 MESKAWY PERFUME <br>
-        فخامة تليق بك
+        Meskawy Perfume - مسكاوي للعطور <br>
+        © 2026 جميع الحقوق محفوظة
     </footer>
 
     <script>
-        // أنيميشن الجزيئات الذهبية
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 + 0.2;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                if (this.y > canvas.height) {
-                    this.y = -10;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 207, 103, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < 80; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
         function openPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
