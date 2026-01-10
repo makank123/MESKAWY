@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسكاوى للعطور - Meskawy Perfume</title>
+    <title>مسكاوي للعطور - Meskawy Perfume</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* إعدادات الخلفية الشاملة */
+        :root {
+            --primary-orange: #e67e22;
+            --soft-white: rgba(255, 255, 255, 0.95);
+        }
+
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('7431490467.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
+            background: black;
             min-height: 100vh;
             color: white;
             display: flex;
@@ -23,127 +26,222 @@
             overflow-x: hidden;
         }
 
+        /* تحريك الخلفية ببطء */
+        .bg-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('7431490467.png');
+            background-size: cover;
+            background-position: center;
+            animation: backgroundZoom 20s linear infinite alternate;
+        }
+
+        @keyframes backgroundZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
         header {
             text-align: center;
-            padding: 50px 20px 20px;
-            animation: fadeInDown 1.2s ease-out;
+            padding: 60px 20px 30px;
+            animation: fadeInDown 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        .site-title-main { font-size: 3.2em; margin: 0; font-weight: 900; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .site-title-sub { font-size: 0.4em; display: block; letter-spacing: 4px; opacity: 0.8; margin-top: 8px; }
 
         .container {
-            width: 90%;
-            max-width: 450px;
+            width: 95%;
+            max-width: 480px;
             text-align: center;
-            flex-grow: 1;
+            padding-bottom: 50px;
         }
 
-        /* تصميم الأزرار التفاعلية */
+        /* تصميم الأزرار مع تأثير اللمعة */
         .btn {
-            display: block;
-            text-align: center;
-            padding: 18px;
-            margin: 15px 0;
-            border-radius: 15px;
-            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 25px;
+            margin: 18px 0;
+            border-radius: 18px;
+            background: var(--soft-white);
             text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            opacity: 0; /* للأنيميشن عند الدخول */
+            animation: slideInUp 0.6s forwards;
         }
+
+        /* تأثير اللمعة عند التمرير */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::after { left: 100%; }
 
         .btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            filter: brightness(1.1);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
-        /* ألوان الأزرار بناءً على الروابط */
-        .facebook { background: linear-gradient(45deg, #1877f2, #0052bd); }
-        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .tiktok { background: #000; border: 1px solid rgba(255,255,255,0.5); }
-        .location { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 18px; color: #2c3e50; }
+        .btn span.text-en { flex: 1; text-align: left; font-size: 13px; font-weight: 600; color: #7f8c8d; }
+        .btn i { font-size: 24px; width: 50px; text-align: center; }
+
+        .facebook-style i { color: #1877f2; }
+        .instagram-style i { color: #cc2366; }
+        .tiktok-style i { color: #000; }
+        .location-style i { color: #27ae60; }
+
+        /* زر استكشف البرتقالي المتفاعل */
         .products-btn { 
-            background: linear-gradient(45deg, #8e44ad, #6c3483); 
+            background: linear-gradient(45deg, #f39c12, #d35400) !important;
+            justify-content: center !important;
             margin-top: 40px;
-            border: 2px solid rgba(255,255,255,0.4);
-            animation: pulse 2s infinite;
+            animation: slideInUp 0.6s forwards, pulseOrange 2s infinite !important;
         }
+        .products-btn span { color: white !important; font-size: 19px !important; }
 
-        /* أنيميشن "قريباً" */
-        .coming-soon-container {
+        /* --- قسم قريباً المطور --- */
+        .coming-soon-wrapper {
             height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            perspective: 1000px;
+        }
+
+        .coming-soon-box {
             position: relative;
+            padding: 40px;
         }
 
         .coming-soon-text {
-            font-size: 60px;
+            font-size: 70px;
             font-weight: 900;
-            background: linear-gradient(90deg, #fff, #8e44ad, #fff);
+            background: linear-gradient(to right, #fff, var(--primary-orange), #fff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite, float 3s ease-in-out infinite;
-            margin: 0;
+            animation: shineText 3s linear infinite, floating 3s ease-in-out infinite;
+            z-index: 2;
+            position: relative;
         }
 
-        .bg-glow {
+        .glow-circle {
             position: absolute;
-            width: 250px;
-            height: 250px;
-            background: rgba(142, 68, 173, 0.4);
-            filter: blur(100px);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px; height: 200px;
+            background: var(--primary-orange);
+            filter: blur(80px);
+            opacity: 0.3;
             border-radius: 50%;
-            z-index: -1;
             animation: pulseGlow 4s infinite;
         }
 
-        /* تعريف الحركات */
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shine { to { background-position: 200% center; } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(142, 68, 173, 0); } 100% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0); } }
-        @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.4); opacity: 0.7; } }
+        /* أنيميشن الدخول المتدرج للأزرار */
+        .btn:nth-child(1) { animation-delay: 0.2s; }
+        .btn:nth-child(2) { animation-delay: 0.4s; }
+        .btn:nth-child(3) { animation-delay: 0.6s; }
+        .btn:nth-child(4) { animation-delay: 0.8s; }
+        .btn:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shineText { to { background-position: 200% center; } }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; }
+        }
+
+        @keyframes pulseOrange {
+            0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(230, 126, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
+        }
 
         .page { display: none; width: 100%; }
-        .page.active { display: block; animation: fadeInUp 0.7s ease; }
+        .page.active { display: block; }
 
-        footer { padding: 30px; font-size: 14px; opacity: 0.6; text-align: center; }
+        footer { padding: 40px; font-size: 14px; opacity: 0.6; text-align: center; }
     </style>
 </head>
 <body>
 
+    <div class="bg-wrapper"></div>
+
     <header>
-        <h1 style="font-size: 2.9em; margin: 0;"> مسكاوى </h1>
-        <p style="font-size: 1.1em; opacity: 0.9;">  يليق بك الاستثناء ❤️  </p>
+        <h1 class="site-title-main">
+            مسكاوي
+            <span class="site-title-sub">Meskawy Perfume</span>
+        </h1>
+        <p style="font-size: 1.1em; color: var(--primary-orange); font-weight: bold; margin-top: 10px;">يليق بك الاستثناء ❤️</p>
     </header>
 
     <div class="container">
         
         <div id="home" class="page active">
-            <a href="https://www.facebook.com/share/1DVToojVV7/" class="btn facebook" target="_blank">فيسبوك</a>
-            <a href="https://www.instagram.com/meskawyperfume?igsh=MWR0bXpudDgwZnplaA==" class="btn instagram" target="_blank">إنستجرام</a>
-            <a href="https://www.tiktok.com/@meskawy1?_r=1&_t=ZS-92u1NKx7z3g" class="btn tiktok" target="_blank">تيك توك</a>
-            <a href="https://maps.app.goo.gl/f4QbGQCP9fmejfDJ8?g_st=ipcضيف" class="btn location" target="_blank">📍 موقع المحل</a>
+            <a href="https://www.facebook.com/share/1DVToojVV7/" class="btn facebook-style" target="_blank">
+                <span class="text-ar">فيسبوك</span>
+                <i class="fab fa-facebook"></i>
+                <span class="text-en">Facebook</span>
+            </a>
             
-            <button class="btn products-btn" onclick="openPage('products-page')">✨ استكشف مجموعتنا</button>
+            <a href="https://www.instagram.com/meskawyperfume" class="btn instagram-style" target="_blank">
+                <span class="text-ar">إنستجرام</span>
+                <i class="fab fa-instagram"></i>
+                <span class="text-en">Instagram</span>
+            </a>
+            
+            <a href="https://www.tiktok.com/@meskawy1" class="btn tiktok-style" target="_blank">
+                <span class="text-ar">تيك توك</span>
+                <i class="fab fa-tiktok"></i>
+                <span class="text-en">TikTok</span>
+            </a>
+            
+            <a href="https://maps.app.goo.gl/f4QbGQCP9fmejfDJ8?g_st=ipcضيف" class="btn location-style" target="_blank">
+                <span class="text-ar">موقع المحل</span>
+                <i class="fas fa-location-dot"></i>
+                <span class="text-en">Location</span>
+            </a>
+            
+            <button class="btn products-btn" onclick="openPage('products-page')">
+                <span>✨ استكشف مجموعتنا | Explore</span>
+            </button>
         </div>
 
         <div id="products-page" class="page">
-            <button class="btn" style="background: rgba(255,255,255,0.1); width: 120px; font-size: 14px; margin-bottom: 20px;" onclick="openPage('home')">⬅ العودة</button>
+            <button class="btn" style="background: rgba(255,255,255,0.1); color:white; width: 140px; margin: 0 auto 30px; justify-content: center; animation: none; opacity: 1;" onclick="openPage('home')">
+                <span>⬅ العودة</span>
+            </button>
             
-            <div class="coming-soon-container">
-                <div class="bg-glow"></div>
-                <h1 class="coming-soon-text">قريباً...</h1>
-                <p style="margin-top: 20px; font-size: 1.1em; color: rgba(255,255,255,0.8);">
-                    انتظروا تشكيلة استثنائية من أرقى العطور
+            <div class="coming-soon-wrapper">
+                <div class="coming-soon-box">
+                    <div class="glow-circle"></div>
+                    <h1 class="coming-soon-text">قريباً...</h1>
+                </div>
+                <p style="font-size: 1.2em; letter-spacing: 1px; animation: fadeInDown 2s infinite alternate;">
+                    نعمل على توفير أفخم العطور لكم
                 </p>
             </div>
         </div>
@@ -151,29 +249,27 @@
     </div>
 
     <footer>
-        © 2026 مسكاوى للعطور - جميع الحقوق محفوظة
+        Meskawy Perfume - مسكاوي للعطور <br>
+        © 2026 جميع الحقوق محفوظة
     </footer>
 
     <script>
         function openPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // إعادة تشغيل أنيميشن الأزرار عند العودة للرئيسية
+            if(pageId === 'home') {
+                const btns = targetPage.querySelectorAll('.btn');
+                btns.forEach((btn, index) => {
+                    btn.style.animation = 'none';
+                    btn.offsetHeight; /* Trigger reflow */
+                    btn.style.animation = null;
+                });
+            }
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
