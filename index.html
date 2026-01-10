@@ -9,8 +9,9 @@
     
     <style>
         :root {
+            --gold: #ffcf67;
             --primary-orange: #e67e22;
-            --soft-white: rgba(255, 255, 255, 0.95);
+            --soft-white: rgba(255, 255, 255, 0.98);
         }
 
         body {
@@ -25,115 +26,136 @@
             overflow-x: hidden;
         }
 
-        /* حاوية الخلفية لضمان الثبات والحركة معاً */
+        /* حاوية الخلفية والصورة المتحركة */
         .bg-fixed-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            z-index: -2;
             overflow: hidden;
         }
 
         .bg-animated {
-            width: 110%; /* عرض إضافي بسيط للسماح بالحركة دون قص */
-            height: 110%;
+            width: 110%; height: 110%;
             position: absolute;
             top: -5%; left: -5%;
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('7431490467.png');
+            background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('7431490467.png');
             background-size: cover;
-            background-position: center center;
-            animation: kenBurns 15s infinite alternate ease-in-out;
+            background-position: center;
+            animation: kenBurns 20s infinite alternate ease-in-out;
+        }
+
+        /* طبقة الجزيئات الذهبية */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         @keyframes kenBurns {
             0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
+            100% { transform: scale(1.1); }
         }
 
         header {
             text-align: center;
-            padding: 50px 20px 20px;
-            animation: fadeInDown 1.2s ease-out;
+            padding: 60px 20px 30px;
+            animation: fadeInDown 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .site-title-main { font-size: clamp(2.5em, 10vw, 3.5em); margin: 0; font-weight: 900; }
-        .site-title-sub { font-size: 0.4em; display: block; letter-spacing: 3px; opacity: 0.8; }
+        .site-title-main { 
+            font-size: clamp(2.8em, 12vw, 4em); 
+            margin: 0; 
+            font-weight: 900; 
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 207, 103, 0.3);
+        }
+        .site-title-sub { font-size: 0.35em; display: block; letter-spacing: 5px; color: #fff; opacity: 0.8; margin-top: 10px; }
 
-        .container { width: 92%; max-width: 480px; text-align: center; flex-grow: 1; }
+        .container { width: 92%; max-width: 480px; text-align: center; z-index: 1; }
 
+        /* الأزرار بتأثير ذهبي خفيف */
         .btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 22px;
-            margin: 18px 0;
-            border-radius: 18px;
+            padding: 18px 25px;
+            margin: 20px 0;
+            border-radius: 20px;
             background: var(--soft-white);
             text-decoration: none;
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 207, 103, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             animation: slideInUp 0.8s backwards;
         }
 
-        /* لمعة الأزرار */
         .btn::before {
             content: '';
             position: absolute;
             top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transition: 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255, 207, 103, 0.4), transparent);
+            transition: 0.7s;
         }
         .btn:hover::before { left: 150%; }
-        .btn:hover { transform: translateY(-5px); }
 
-        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 18px; color: #2c3e50; }
-        .btn span.text-en { flex: 1; text-align: left; font-size: 13px; font-weight: 600; color: #7f8c8d; }
-        .btn i { font-size: 24px; width: 50px; text-align: center; }
+        .btn:hover { 
+            transform: translateY(-8px) scale(1.03); 
+            box-shadow: 0 15px 35px rgba(255, 207, 103, 0.2);
+            background: #fff;
+        }
+
+        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 19px; color: #1a1a1a; }
+        .btn span.text-en { flex: 1; text-align: left; font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase; }
+        .btn i { font-size: 26px; width: 50px; text-align: center; transition: transform 0.3s; }
+        .btn:hover i { transform: scale(1.2); }
 
         .facebook-style i { color: #1877f2; }
         .instagram-style i { color: #cc2366; }
         .tiktok-style i { color: #000; }
         .location-style i { color: #27ae60; }
 
+        /* زر استكشف البرتقالي الذهبي */
         .products-btn { 
-            background: linear-gradient(45deg, #f39c12, #d35400) !important;
+            background: linear-gradient(45deg, #f39c12, #d35400, #f39c12) !important;
+            background-size: 200% auto !important;
             justify-content: center !important;
-            margin-top: 40px;
-            animation: slideInUp 0.8s backwards, pulseOrange 2s infinite !important;
+            margin-top: 50px;
+            animation: slideInUp 0.8s backwards, pulseGold 2s infinite, gradientMove 3s infinite !important;
+            border: none;
         }
-        .products-btn span { color: white !important; font-size: 19px !important; }
+        .products-btn span { color: white !important; font-size: 20px !important; letter-spacing: 1px; }
 
-        .cs-glow-text {
-            font-size: clamp(50px, 15vw, 80px);
+        /* قريباً... بإنبهار أكثر */
+        .coming-soon-wrapper { height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .cs-text {
+            font-size: clamp(60px, 18vw, 100px);
             font-weight: 900;
-            background: linear-gradient(90deg, #fff, var(--primary-orange), #fff);
-            background-size: 200% auto;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold);
+            background: linear-gradient(to bottom, var(--gold), #fff);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shineText 3s linear infinite, float 3s ease-in-out infinite;
+            animation: cs-float 3s infinite alternate ease-in-out, cs-glow 2s infinite alternate;
         }
 
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shineText { to { background-position: 200% center; } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes pulseOrange { 
-            0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(230, 126, 34, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
-        }
+        @keyframes gradientMove { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        @keyframes cs-glow { from { text-shadow: 0 0 10px rgba(255,207,103,0.2); } to { text-shadow: 0 0 30px rgba(255,207,103,0.8); } }
+        @keyframes cs-float { from { transform: translateY(0); } to { transform: translateY(-30px); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0.6); } 70% { box-shadow: 0 0 0 25px rgba(255, 207, 103, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0); } }
 
         .page { display: none; width: 100%; }
         .page.active { display: block; }
-        footer { padding: 40px; font-size: 13px; opacity: 0.6; text-align: center; }
+        footer { padding: 50px; font-size: 14px; opacity: 0.5; text-align: center; letter-spacing: 1px; }
 
-        .btn:nth-child(1) { animation-delay: 0.1s; }
-        .btn:nth-child(2) { animation-delay: 0.2s; }
-        .btn:nth-child(3) { animation-delay: 0.3s; }
-        .btn:nth-child(4) { animation-delay: 0.4s; }
-        .btn:nth-child(5) { animation-delay: 0.5s; }
+        .btn:nth-child(1) { animation-delay: 0.2s; }
+        .btn:nth-child(2) { animation-delay: 0.4s; }
+        .btn:nth-child(3) { animation-delay: 0.6s; }
+        .btn:nth-child(4) { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
@@ -141,13 +163,15 @@
     <div class="bg-fixed-container">
         <div class="bg-animated"></div>
     </div>
+    
+    <canvas id="particles-canvas"></canvas>
 
     <header>
         <h1 class="site-title-main">
             مسكاوي
-            <span class="site-title-sub">Meskawy Perfume</span>
+            <span class="site-title-sub"></span>
         </h1>
-        <p style="font-size: 1.1em; color: var(--primary-orange); font-weight: bold; margin-top: 10px;">يليق بك الاستثناء ❤️</p>
+        <p style="font-size: 1.2em; color: #fff; margin-top: 15px; font-weight: 300; opacity: 0.9;">يليق بك الاستثناء ❤️</p>
     </header>
 
     <div class="container">
@@ -173,27 +197,83 @@
                 <span class="text-en">Location</span>
             </a>
             <button class="btn products-btn" onclick="openPage('products-page')">
-                <span>✨ استكشف مجموعتنا | Explore</span>
+                <span>استكشف مجموعتنا | EXPLORE</span>
             </button>
         </div>
 
         <div id="products-page" class="page">
             <button class="btn" style="background: rgba(255,255,255,0.1); color:white; width: 120px; margin: 0 auto 30px; justify-content: center; animation: none; opacity: 1;" onclick="openPage('home')">
-                <span>⬅ العودة</span>
+                <span>⬅ عودة</span>
             </button>
-            <div style="height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h1 class="cs-glow-text">قريباً...</h1>
-                <p>نعمل على توفير أفخم العطور لكم</p>
+            <div class="coming-soon-wrapper">
+                <h1 class="cs-text">قريباً</h1>
+                <p style="font-size: 1.3em; font-weight: bold; color: var(--gold);">MESKAWY COLLECTION</p>
             </div>
         </div>
     </div>
 
     <footer>
-        Meskawy Perfume - مسكاوي للعطور <br>
-        © 2026 جميع الحقوق محفوظة
+        © 2026 MESKAWY PERFUME <br>
+        فخامة تليق بك
     </footer>
 
     <script>
+        // أنيميشن الجزيئات الذهبية
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 + 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > canvas.height) {
+                    this.y = -10;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 207, 103, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
         function openPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
