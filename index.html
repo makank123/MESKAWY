@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -10,213 +11,297 @@
     <style>
         :root {
             --gold: #ffcf67;
-            --primary-orange: #e67e22; 
+            --primary-orange: #e67e22;
             --soft-white: rgba(255, 255, 255, 0.98);
         }
 
         body {
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000;
-            min-height: 100vh;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            background-color: #000; min-height: 100vh; color: white;
+            display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
         }
 
-        .bg-fixed-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
+        /* --- الخلفية المتحركة --- */
+        .bg-fixed-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .bg-animated {
-            width: 110%; height: 110%;
-            position: absolute;
-            top: -5%; left: -5%;
+            width: 110%; height: 110%; position: absolute; top: -5%; left: -5%;
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('7431490467.png');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
             animation: kenBurns 15s infinite alternate ease-in-out;
         }
+        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
 
-        @keyframes kenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
+        header { text-align: center; padding: 60px 20px 30px; }
+        .site-title-main { font-size: clamp(2.8em, 12vw, 3.8em); margin: 0; font-weight: 900; color: var(--primary-orange); text-shadow: 0 5px 20px rgba(0,0,0,0.8); }
 
-        header {
-            text-align: center;
-            padding: 60px 20px 30px;
-            animation: fadeInDown 1.5s ease-out;
-        }
+        .container { width: 92%; max-width: 460px; text-align: center; z-index: 1; padding-bottom: 120px; }
+        .page { display: none; width: 100%; }
+        .page.active { display: block; }
 
-        .site-title-main { 
-            font-size: clamp(2.8em, 12vw, 3.8em); 
-            margin: 0; 
-            font-weight: 900; 
-            color: var(--primary-orange); 
-            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
-        }
-        .site-title-sub { font-size: 0.35em; display: block; letter-spacing: 5px; color: #FF7F00; opacity: 0.8; margin-top: 10px; }
-
-        .container { width: 92%; max-width: 460px; text-align: center; z-index: 1; }
-
+        /* --- الأزرار وتأثيرات اللمس --- */
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 22px;
-            margin: 18px 0;
-            border-radius: 18px;
-            background: var(--soft-white);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            animation: slideInUp 0.8s backwards;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 25px; margin: 20px 0; border-radius: 20px;
+            background: var(--soft-white); text-decoration: none; border: none;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer; position: relative; overflow: hidden;
         }
 
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 207, 103, 0.5), transparent);
-            transition: 0.7s;
-        }
-        .btn:hover::after { left: 150%; }
-
-        .btn:hover { 
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(255, 207, 103, 0.2);
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 126, 34, 0.6), transparent);
+            transform: skewX(-25deg); transition: none;
         }
 
-        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 18px; color: #1a1a1a; }
-        .btn span.text-en { flex: 1; text-align: left; font-size: 16px; font-weight: bold; color: #1a1a1a; }
-        .btn i { font-size: 24px; width: 50px; text-align: center; }
-
-        .facebook-style i { color: #1877f2; }
-        .instagram-style i { color: #cc2366; }
-        .tiktok-style i { color: #000; }
-        .location-style i { color: #27ae60; }
-
-        .products-btn { 
-            background: linear-gradient(45deg, #f39c12, #d35400) !important;
-            justify-content: center !important;
-            margin-top: 40px;
-            animation: slideInUp 0.8s backwards, pulseGold 2s infinite !important;
-            border: 1px solid rgba(255,255,255,0.2);
+        .btn:hover {
+            transform: scale(1.05);
+            background: #fff;
+            box-shadow: 0 12px 25px rgba(230, 126, 34, 0.4);
         }
-        .products-btn span { color: white !important; font-size: 19px !important; font-weight: bold; }
+        .btn:hover::before { animation: orangeShine 0.8s forwards; }
 
-        .coming-soon-wrapper {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        @keyframes orangeShine { 0% { left: -100%; } 100% { left: 120%; } }
 
-        .cs-text {
-            font-size: clamp(55px, 15vw, 85px);
-            font-weight: 900;
-            background: linear-gradient(to bottom, #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: floatText 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 15px rgba(255, 207, 103, 0.5));
-        }
+        .btn span.text-ar { flex: 1; text-align: right; font-weight: bold; font-size: 19px; color: #1a1a1a; z-index: 1; }
+        .btn span.text-en { flex: 1; text-align: left; font-size: 17px; font-weight: 800; color: #1a1a1a; z-index: 1; }
+        .btn i { font-size: 26px; width: 50px; text-align: center; color: #1a1a1a; z-index: 1; }
 
-        @keyframes floatText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
+        .products-btn { background: linear-gradient(45deg, #f39c12, #d35400) !important; justify-content: center !important; margin-top: 45px; }
+        .products-btn span { color: white !important; font-size: 1.1em !important; font-weight: 900; }
+        .products-btn:hover { animation: pulseGold 1.5s infinite !important; }
 
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseGold { 
-            0% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0.6); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 207, 103, 0); }
+        @keyframes pulseGold {
+            0% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 207, 103, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 207, 103, 0); }
         }
 
-        .page { display: none; width: 100%; }
-        .page.active { display: block; }
-        footer { padding: 40px; font-size: 13px; opacity: 0.6; text-align: center; }
+        /* --- المتجر والسلة --- */
+        .cart-icon-fixed { position: fixed; bottom: 30px; left: 30px; background: var(--primary-orange); color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; z-index: 1500; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .cart-count { position: absolute; top: 0; right: 0; background: white; color: black; width: 22px; height: 22px; border-radius: 50%; font-size: 13px; display: none; align-items: center; justify-content: center; font-weight: bold; }
+        
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+        .modal { background: #111; width: 90%; max-width: 400px; max-height: 85vh; border-radius: 30px; border: 1px solid var(--gold); padding: 20px; overflow-y: auto; position: relative; }
 
-        .btn:nth-child(1) { animation-delay: 0.1s; }
-        .btn:nth-child(2) { animation-delay: 0.2s; }
-        .btn:nth-child(3) { animation-delay: 0.3s; }
-        .btn:nth-child(4) { animation-delay: 0.4s; }
+        .slider-container { position: relative; width: 100%; height: 250px; border-radius: 20px; overflow: hidden; margin-bottom: 15px; background: #000; direction: ltr; }
+        .slider-track { display: flex; transition: transform 0.5s ease; height: 100%; }
+        .slider-track img { width: 100%; min-width: 100%; height: 100%; object-fit: contain; }
+
+        /* شارة الخصم */
+        .discount-badge {
+            position: absolute; top: 10px; right: 10px; background: #e74c3c;
+            color: white; padding: 4px 10px; border-radius: 8px; font-weight: 900;
+            font-size: 0.8em; z-index: 5;
+        }
+
+        .tabs-nav { display: flex; gap: 8px; margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 20px; }
+        .tab-item { flex: 1; padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; font-weight: 900; }
+        .tab-item.active { background: white; color: black; }
+        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card { background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; }
+        
+        .remove-item-btn { background: none; border: none; color: #ff4d4d; font-size: 1.2em; cursor: pointer; padding: 5px 10px; margin-right: 10px; transition: 0.3s; }
+        .remove-item-btn:hover { color: #ff1a1a; transform: scale(1.2); }
     </style>
 </head>
 <body>
 
-    <div class="bg-fixed-container">
-        <div class="bg-animated"></div>
+    <div class="bg-fixed-container"><div class="bg-animated"></div></div>
+
+    <div class="cart-icon-fixed" onclick="toggleCart(true)">
+        <i class="fas fa-shopping-bag"></i>
+        <div id="cartCount" class="cart-count">0</div>
+    </div>
+
+    <div id="productModal" class="overlay" onclick="closeModal('productModal')">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="slider-container">
+                <button onclick="moveSlider(-1)" style="position:absolute; left:10px; top:50%; z-index:10; background:rgba(230,126,34,0.7); border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;">❮</button>
+                <button onclick="moveSlider(1)" style="position:absolute; right:10px; top:50%; z-index:10; background:rgba(230,126,34,0.7); border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer;">❯</button>
+                <div id="sliderTrack" class="slider-track"></div>
+            </div>
+            <h2 id="m-title" style="color:var(--gold); margin:0;"></h2>
+            <div id="size-section" style="margin:15px 0; display:none;">
+                <p>اختر الحجم:</p>
+                <div id="size-btns" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
+            </div>
+            <p id="m-price" style="font-size:1.8em; font-weight:bold; color:var(--gold);"></p>
+            <button onclick="addToCart()" style="width:100%; padding:15px; border-radius:15px; background:var(--primary-orange); color:white; border:none; font-weight:bold; cursor:pointer;">إضافة للسلة</button>
+        </div>
+    </div>
+
+    <div id="cartOverlay" class="overlay" onclick="toggleCart(false)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3 style="color:var(--gold); margin-top:0;">حقيبة المشتريات</h3>
+            <div id="cartItemsList"></div>
+            <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:1.3em; font-weight:bold;">
+                <span>الإجمالي:</span>
+                <span id="cartTotal">0 ج.م</span>
+            </div>
+            <button onclick="checkout()" style="width:100%; margin-top:20px; padding:18px; border-radius:18px; background:#25d366; color:white; border:none; font-weight:bold; cursor:pointer;">إرسال عبر واتساب</button>
+        </div>
     </div>
 
     <header>
-        <h1 class="site-title-main">
-            مسكاوي
-        </h1>
-        <p style="font-size: 1.1em; color: #fff; margin-top: 15px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">يليق بك الاستثناء ❤️</p>
+        <h1 class="site-title-main">مسكاوي</h1>
+        <p style="font-weight: bold; font-size: 1.1em;">يليق بك الاستثناء ❤️</p>
     </header>
 
     <div class="container">
         <div id="home" class="page active">
-            <a href="https://www.facebook.com/share/1DVToojVV7/" class="btn facebook-style" target="_blank">
-                <span class="text-ar">فيسبوك</span>
-                <i class="fab fa-facebook"></i>
-                <span class="text-en">Facebook</span>
-            </a>
-            <a href="https://www.instagram.com/meskawyperfume" class="btn instagram-style" target="_blank">
-                <span class="text-ar">إنستجرام</span>
-                <i class="fab fa-instagram"></i>
-                <span class="text-en">Instagram</span>
-            </a>
-            <a href="https://www.tiktok.com/@meskawy1" class="btn tiktok-style" target="_blank">
-                <span class="text-ar">تيك توك</span>
-                <i class="fab fa-tiktok"></i>
-                <span class="text-en">TikTok</span>
-            </a>
-            <a href="https://maps.app.goo.gl/f4QbGQCP9fmejfDJ8?g_st=ipcضيف" class="btn location-style" target="_blank">
-                <span class="text-ar">الموقع </span>
-                <i class="fas fa-location-dot"></i>
-                <span class="text-en">Location</span>
-            </a>
-            <button class="btn products-btn" onclick="openPage('products-page')">
-                <span>استكشف مجموعتنا | EXPLORE</span>
-            </button>
+            <a href="https://facebook.com/share/1DVToojVV7/" target="_blank" class="btn"><span class="text-ar">فيسبوك</span><i class="fab fa-facebook" style="color:#1877f2"></i><span class="text-en">Facebook</span></a>
+            <a href="https://instagram.com/meskawyperfume" target="_blank" class="btn"><span class="text-ar">إنستجرام</span><i class="fab fa-instagram" style="color:#cc2366"></i><span class="text-en">Instagram</span></a>
+            <a href="https://tiktok.com/@meskawy1" target="_blank" class="btn"><span class="text-ar">تيك توك</span><i class="fab fa-tiktok" style="color:#000"></i><span class="text-en">TikTok</span></a>
+            <a href="http://googleusercontent.com/maps.google.com/4" target="_blank" class="btn"><span class="text-ar">موقعنا</span><i class="fas fa-location-dot" style="color:#e74c3c"></i><span class="text-en">Location</span></a>
+            <button class="btn products-btn" onclick="openPage('products-page')"><span>استكشف مجموعتنا | EXPLORE</span></button>
         </div>
 
         <div id="products-page" class="page">
-            <button class="btn" style="background: rgba(255,255,255,0.1); color:white; width: 120px; margin: 0 auto 30px; justify-content: center; animation: none; opacity: 1;" onclick="openPage('home')">
-                <span>⬅ عودة</span>
-            </button>
-            <div class="coming-soon-wrapper">
-                <h1 class="cs-text">قريباً</h1>
-                <p style="font-size: 1.2em; color: var(--gold);">نعمل على توفير ارقي العطور لكم</p>
+            <div class="tabs-nav">
+                <div class="tab-item active" onclick="switchTab('tab-offers')">العروض</div>
+                <div class="tab-item" onclick="switchTab('tab-meskawy')">المسك</div>
+                <div class="tab-item" onclick="switchTab('tab-perfumes')">العطور</div>
             </div>
+            <div id="tab-offers" class="tab-content products-grid active"></div>
+            <div id="tab-meskawy" class="tab-content products-grid" style="display:none;"></div>
+            <div id="tab-perfumes" class="tab-content products-grid" style="display:none;"></div>
+            <button onclick="openPage('home')" style="margin-top:30px; background:none; border:1px solid #444; color:white; padding:10px 20px; border-radius:10px; cursor:pointer;">العودة للرئيسية</button>
         </div>
     </div>
 
-    <footer>
-        <b style="font-size: 1.1em; font-weight: 900; color: #fff;">لو انت ناوي اكيد مسكاوى </b> <br>
-        © 2026 جميع الحقوق محفوظة  </footer>
-
     <script>
-        function openPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        let cart = [];
+        let activeProduct = null;
+        let selectedSizeIdx = 0;
+        let currentImgIdx = 0;
+
+        const productsData = {
+            'tab-offers': [
+                { id: 1, name: 'بوكس السعادة', price: 550, oldPrice: 700, images: ['7431490467.png', '7431490467.png'] },
+                { id: 11, name: 'عرض العيد', price: 400, oldPrice: 500, images: ['7431490467.png', '7431490467.png'] },
+                { id: 12, name: 'عرض التوفير', price: 250, oldPrice: 350, images: ['7431490467.png', '7431490467.png'] }
+            ],
+            'tab-meskawy': [
+                { id: 2, name: 'مسك الرمان', images: ['7431490467.png', '7431490467.png'], sizes: [{label:'3g', price:60}, {label:'5g', price:100}, {label:'8g', price:160}, {label:'12g', price:240}] },
+                { id: 4, name: 'مسك أبيض', images: ['7431490467.png', '7431490467.png'], sizes: [{label:'3g', price:50}, {label:'5g', price:85}, {label:'8g', price:135}, {label:'12g', price:200}] },
+                { id: 21, name: 'مسك بودر', images: ['7431490467.png', '7431490467.png'], sizes: [{label:'3g', price:65}, {label:'5g', price:110}] }
+            ],
+            'tab-perfumes': [
+                { id: 3, name: 'عطر مسكاوي', price: 400, images: ['7431490467.png', '7431490467.png'] },
+                { id: 31, name: 'عطر لافندر', price: 300, images: ['7431490467.png', '7431490467.png'] },
+                { id: 32, name: 'عطر لوتس', price: 350, images: ['7431490467.png', '7431490467.png'] }
+            ]
+        };
+
+        function renderProducts() {
+            for (let tab in productsData) {
+                document.getElementById(tab).innerHTML = productsData[tab].map(p => {
+                    let badge = p.oldPrice ? `<div class="discount-badge">خصم ${Math.round((p.oldPrice-p.price)/p.oldPrice*100)}%</div>` : '';
+                    return `
+                    <div class="product-card" onclick="showProduct(${p.id}, '${tab}')">
+                        ${badge}
+                        <img src="${p.images[0]}" style="width:100%;">
+                        <div style="padding:10px;"><b>${p.name}</b><br>${p.sizes ? p.sizes[0].price : p.price} ج.م</div>
+                    </div>`;
+                }).join('');
+            }
         }
+
+        function showProduct(id, tab) {
+            activeProduct = productsData[tab].find(p => p.id === id);
+            currentImgIdx = 0; selectedSizeIdx = 0;
+            document.getElementById('m-title').innerText = activeProduct.name;
+            const track = document.getElementById('sliderTrack');
+            track.innerHTML = activeProduct.images.map(img => `<img src="${img}">`).join('');
+            track.style.transform = `translateX(0)`;
+
+            if(activeProduct.sizes) {
+                document.getElementById('size-section').style.display = 'block';
+                document.getElementById('size-btns').innerHTML = activeProduct.sizes.map((s,i) => `<button onclick="updatePrice(${i})" style="padding:10px; border-radius:10px; border:1px solid #444; background:none; color:white; cursor:pointer;">${s.label}</button>`).join('');
+                updatePrice(0);
+            } else {
+                document.getElementById('size-section').style.display = 'none';
+                document.getElementById('m-price').innerText = activeProduct.price + " ج.م";
+            }
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function moveSlider(dir) {
+            if(!activeProduct) return;
+            const total = activeProduct.images.length;
+            currentImgIdx = (currentImgIdx + dir + total) % total;
+            document.getElementById('sliderTrack').style.transform = `translateX(-${currentImgIdx * 100}%)`;
+        }
+
+        function updatePrice(i) {
+            selectedSizeIdx = i;
+            document.getElementById('m-price').innerText = activeProduct.sizes[i].price + " ج.م";
+            const btns = document.querySelectorAll('#size-btns button');
+            btns.forEach((btn, idx) => btn.style.borderColor = (idx === i) ? 'var(--primary-orange)' : '#444');
+        }
+
+        function addToCart() {
+            let price = activeProduct.sizes ? activeProduct.sizes[selectedSizeIdx].price : activeProduct.price;
+            let name = activeProduct.sizes ? `${activeProduct.name} (${activeProduct.sizes[selectedSizeIdx].label})` : activeProduct.name;
+            let item = cart.find(x => x.name === name);
+            if(item) { item.qty++; } else { cart.push({name: name, price: price, qty: 1}); }
+            updateCartUI(); closeModal('productModal');
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            const count = document.getElementById('cartCount');
+            if(cart.length === 0) { list.innerHTML = "<p>السلة فارغة</p>"; count.style.display="none"; document.getElementById('cartTotal').innerText="0 ج.م"; return; }
+            count.innerText = cart.reduce((s,i)=>s+i.qty, 0); count.style.display="flex";
+            list.innerHTML = cart.map((item, i) => `
+                <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:15px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="flex: 1;">
+                        <b>${item.name}</b><br>
+                        <span style="color:var(--gold);">${item.price * item.qty} ج.م</span>
+                    </div>
+                    <div style="display:flex; align-items:center;">
+                        <button onclick="changeQty(${i},-1)" style="color:white; background:none; border:1px solid #444; width:28px; border-radius:5px; cursor:pointer;">-</button>
+                        <span style="margin:0 8px; font-weight:bold;">${item.qty}</span>
+                        <button onclick="changeQty(${i},1)" style="color:white; background:none; border:1px solid #444; width:28px; border-radius:5px; cursor:pointer;">+</button>
+                        <button onclick="removeItem(${i})" class="remove-item-btn"><i class="fas fa-trash-can"></i></button>
+                    </div>
+                </div>`).join('');
+            document.getElementById('cartTotal').innerText = cart.reduce((s,i)=>s+(i.price*i.qty), 0) + " ج.م";
+        }
+
+        function changeQty(idx, delta) { cart[idx].qty += delta; if(cart[idx].qty <= 0) cart.splice(idx,1); updateCartUI(); }
+        function removeItem(idx) { if(confirm("هل تريد حذف هذا المنتج من السلة؟")) { cart.splice(idx, 1); updateCartUI(); } }
+        function toggleCart(s) { document.getElementById('cartOverlay').style.display = s?'flex':'none'; }
+        function openPage(id) { document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+        function switchTab(id) { 
+            document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+            document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+            document.getElementById(id).style.display='grid';
+            event.currentTarget.classList.add('active');
+        }
+        function closeModal(id) { document.getElementById(id).style.display='none'; }
+
+        function checkout() {
+            if(cart.length === 0) return;
+            const confirmPayment = confirm("تنبيه هام:\nالدفع يكون عن طريق تحويل المبلغ كاملاً (فودافون كاش) قبل إرسال الطلب.\n\nهل تود الاستمرار لتأكيد الطلب؟");
+            if (confirmPayment) {
+                let msg = " *طلب شراء جديد من متجر مسكاوي*\n--------------------------------------\n\n";
+                cart.forEach(item => {
+                    msg += " *المنتج:* " + item.name + "\n";
+                    msg += "    *الكمية:* " + item.qty + "\n";
+                    msg += "    *الحساب:* " + (item.price * item.qty) + " ج.م\n";
+                    msg += "--- --- --- --- ---\n";
+                });
+                let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+                msg += "\n *الإجمالي النهائي:* _" + total + " ج.م_\n\n *يرجى تأكيد الطلب لبدء التجهيز*";
+                window.open(`https://wa.me/201120054607?text=${encodeURIComponent(msg)}`);
+                cart = []; updateCartUI(); toggleCart(false);
+            }
+        }
+
+        renderProducts();
     </script>
 </body>
 </html>
-
