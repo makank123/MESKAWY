@@ -10,7 +10,7 @@
     <style>
         :root {
             --gold: #ffcf67;
-            --primary-orange: #e67e22;
+            --primary-orange: #e67e22; 
             --soft-white: rgba(255, 255, 255, 0.98);
         }
 
@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* حاوية الخلفية لضمان ظهور الصورة كاملة مع أنيميشن هادئ */
         .bg-fixed-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -59,14 +58,13 @@
             font-size: clamp(2.8em, 12vw, 3.8em); 
             margin: 0; 
             font-weight: 900; 
-            color: var(--gold);
+            color: var(--primary-orange); /* تم التغيير إلى اللون البرتقالي هنا */
             text-shadow: 0 5px 20px rgba(0,0,0,0.8);
         }
         .site-title-sub { font-size: 0.35em; display: block; letter-spacing: 5px; color: #FF7F00; opacity: 0.8; margin-top: 10px; }
 
         .container { width: 92%; max-width: 460px; text-align: center; z-index: 1; }
 
-        /* الأزرار البيضاء التفاعلية */
         .btn {
             display: flex;
             align-items: center;
@@ -84,7 +82,6 @@
             animation: slideInUp 0.8s backwards;
         }
 
-        /* تأثير اللمعة عند اللمس أو مرور الماوس */
         .btn::after {
             content: '';
             position: absolute;
@@ -108,7 +105,6 @@
         .tiktok-style i { color: #000; }
         .location-style i { color: #27ae60; }
 
-        /* زر استكشف البرتقالي الذهبي */
         .products-btn { 
             background: linear-gradient(45deg, #f39c12, #d35400) !important;
             justify-content: center !important;
@@ -118,7 +114,6 @@
         }
         .products-btn span { color: white !important; font-size: 19px !important; font-weight: bold; }
 
-        /* قسم قريبا */
         .coming-soon-wrapper {
             height: 50vh;
             display: flex;
@@ -169,11 +164,8 @@
     <header>
         <h1 class="site-title-main">
             مسكاوي
-            <span class="site-title-sub"></span>
         </h1>
-        <p style="font-size: 1.1em; color: #fff; margin-top: 15px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">يليق بك الاستثناء ❤️
-
-</p>
+        <p style="font-size: 1.1em; color: #fff; margin-top: 15px; font-weight: bold; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">يليق بك الاستثناء ❤️</p>
     </header>
 
     <div class="container">
@@ -215,8 +207,8 @@
     </div>
 
     <footer>
-    <b style="font-size: 1.1em; font-weight: 900; color: #fff;">لو انت ناوي اكيد مسكاوى </b> <br>
-    © 2026 جميع الحقوق محفوظة  </footer>
+        <b style="font-size: 1.1em; font-weight: 900; color: #fff;">لو انت ناوي اكيد مسكاوى </b> <br>
+        © 2026 جميع الحقوق محفوظة  </footer>
 
     <script>
         function openPage(pageId) {
@@ -227,9 +219,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
